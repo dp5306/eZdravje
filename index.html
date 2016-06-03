@@ -13,6 +13,8 @@
   <script src="knjiznice/js/jquery-2.2.3.min.js"></script>
   <script src="knjiznice/js/bootstrap.min.js"></script>
   <script src="knjiznice/js/koda.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
 </head>
 
 <body>
@@ -48,58 +50,172 @@
   <div class="container">
     <div class="row">
 
+
     </div>
     <div class="row">
-      <div class="col-lg-6 text-center">
-        <div class="panel panel-primary text-left" style="float: left; width: 100%">
 
+      <div class="col-lg-12 text-center">
+
+        <div class="jumbotron">
+          <h1>Pozdravljeni!</h1>
+          <p>Aplikacija je namenjena zdravnikom pedijatrom in sicer pomaga pri oceni rizičnosti pri novorojenčkih, ter spremljanju njihovega stanja vse od rojstva do odpusta iz porodnišnice.</p>
+          <p><a href="opis.html" class="btn btn-primary btn-lg">Več o tem</a></p>
+        </div>
+
+
+        <div class="panel panel-primary text-left" style="float: left; width: 100%">
           <div class="panel-heading">
-            <button class="panel-title" data-toggle="collapse" data-target="#UstvariZapis" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
+            <button class="panel-title" data-toggle="collapse" data-target="#toCollapse" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
             <h3 class="panel-title">Ustvari zapis za novega bolnika</h3>
           </div>
-          <div class="panel-collapse collapse in" id="UstvariZapis">
+
+          <div class="panel-collapse collapse in" id="toCollapse">
+
             <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
 
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">Ime Matere</label>
-                <input class="form-control" id="focusedInput" type="text" placeholder="Petra">
-              </div>
+              <div class="panel panel-primary text-left" style="float: left; width: 49%">
 
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">Priimek Matere</label>
-                <input class="form-control" id="focusedInput" type="text" placeholder="Ral">
-              </div>
-
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">Datum Rojstva Otroka</label>
-                <input class="form-control" id="focusedInput" type="text" placeholder="1957-03-10T09:08">
-              </div>
-
-              <div class="form-group">
-                <div style="width: 10%">
-                  <label for="select" class="control-label">Spol</label>
+                <div class="panel-heading">
+                  <button class="panel-title" data-toggle="collapse" data-target="#UstvariZapis" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
+                  <h3 class="panel-title">Osovni podatki</h3>
                 </div>
-                <select style="width: 20%" class="form-control" id="select">
-                  <option disabled selected hidden style="color: #373737" value="">izberite..</option>
-                  <option value="F">Ženski</option>
-                  <option value="M">Moški</option>
-                </select>
+                <div class="panel-collapse collapse in" id="UstvariZapis">
+                  <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+
+                    <div class="form-group">
+                      <label class="control-label" for="focusedInput">Ime Matere</label>
+                      <input class="form-control" id="kreirajIme" type="text" placeholder="Petra">
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label" for="focusedInput">Priimek Matere</label>
+                      <input class="form-control" id="kreirajPriimek" type="text" placeholder="Ral">
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label" for="focusedInput">Datum Rojstva Otroka</label>
+                      <input class="form-control" id="kreirajDatumRojstva" type="text" placeholder="1957-03-10T09:08">
+                    </div>
+
+                    <div class="form-group">
+                      <div style="width: 10%">
+                        <label for="select" class="control-label">Spol</label>
+                      </div>
+                      <select style="width: 20%" class="form-control" id="spol">
+                        <option disabled selected hidden style="color: #373737" value="">izberite..</option>
+                        <option value="Ženski">Ženski</option>
+                        <option value="Moški">Moški</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="form-group form-inline text-left" style="float: right">
-                <button type="reset" class="btn btn-default">Prekliči</button>
-                <button type="submit" class="btn btn-primary ">Ustvari</button>
+
+
+
+              <div class="panel panel-danger text-left" style="float: right; width: 49%">
+                <div class="panel-heading">
+                  <button class="panel-title" data-toggle="collapse" data-target="#Rizikfaktorji" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
+                  <h3 class="panel-title">Faktorji Rizičnosti</h3>
+                </div>
+                <div class="panel-collapse collapse in" id="Rizikfaktorji">
+                  <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+
+                    <div class="form-group">
+                      <label class="control-label">Čas Nosečnosti</label>
+                      <div class="input-group">
+                        <input id="casNosecnosti" type="text" class="form-control" placeholder="26">
+                        <span class="input-group-addon">tednov</span>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label">Starost Matere</label>
+                      <div class="input-group">
+                        <input id="starostMatere" type="text" class="form-control" placeholder="16">
+                        <span class="input-group-addon">let</span>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="select" class="control-label">APGAR Ocena</label>
+                      <select id="APGAR" class="form-control" id="select">
+                        <option disabled selected hidden style="color: #999;" value="">izberite..</option>
+                        <option value="10">10</option>
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label">Dolžina Ob Rojstvu</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="35">
+                        <span class="input-group-addon">cm</span>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label">Teža Ob Rojstvu</label>
+                      <div class="input-group">
+                        <input id="Teza" type="text" class="form-control" placeholder="1600">
+                        <span class="input-group-addon">g</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
+
+
+<span id="kreirajSporocilo"></span>
+
+              <button onclick="kreirajEHRzaBolnika()" class="btn btn-default btn-lg btn-block; text-center" style="width: 100%;">Ustvari zapis za bolnika</button>
+
             </div>
           </div>
         </div>
 
-     <div class="panel panel-warning text-left" style="float: left; width: 100%">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="panel panel-primary text-left" style="float: left; width: 49%">
           <div class="panel-heading">
             <button class="panel-title" data-toggle="collapse" data-target="#VitalniZnaki" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
-            <h3 class="panel-title">Ustvari zapis za novega bolnika</h3>
+            <h3 class="panel-title">Dodaj meritev vitalnih znakov</h3>
           </div>
           <div class="panel-collapse collapse in" id="VitalniZnaki">
             <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+
+            <div class="form-group">
+            <label class="control-label" for="focusedInput">EHR ID pacienta</label>
+                <div class="input-group" style="width: 100%">
+                  <input class="form-control" id="focusedInput" type="text" placeholder="5cff38c6-22c8-471f-ad15-c015ec2b7af5">
+            </div>
+            </div>
 
               <div class="form-group">
                 <label class="control-label" for="focusedInput">Pulz</label>
@@ -114,9 +230,9 @@
                 <div class="input-group">
                   <input class="form-control" id="focusedInput" type="text" placeholder="120">
                   <span class="input-group-addon">mm Hg</span>
-                  </div>
+                </div>
               </div>
-              
+
               <div class="form-group">
                 <label class="control-label" for="focusedInput">Sistolični Pritisk</label>
                 <div class="input-group">
@@ -127,20 +243,20 @@
 
               <div class="form-group">
                 <label class="control-label" for="focusedInput">Frekvenca Dihanja</label>
-                  <div class="input-group">
-                    <input type="text" class="form-control"  placeholder="40">
-                    <span class="input-group-addon">vdihov/min</span>
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="40">
+                  <span class="input-group-addon">vdihov/min</span>
                 </div>
               </div>
-              
+
               <div class="form-group">
                 <label class="control-label" for="focusedInput">Nasičenost Krvi s Kisikom</label>
                 <div class="input-group">
                   <input class="form-control" id="focusedInput" type="text" placeholder="1957-03-10T09:08">
                   <span class="input-group-addon">%</span>
-                  </div>
+                </div>
               </div>
-              
+
               <div class="form-group">
                 <label class="control-label" for="focusedInput">Temperatura</label>
                 <div class="input-group">
@@ -148,15 +264,33 @@
                   <span class="input-group-addon">°C</span>
                 </div>
               </div>
+
               
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">Barva Kože</label>
-                <input class="form-control" id="focusedInput" type="text" placeholder="Rožnata">
-              </div>
-              
+
               <div class="form-group">
                 <label class="control-label" for="focusedInput">CPR Vrednost</label>
                 <input class="form-control" id="focusedInput" type="text" placeholder="113">
+              </div>
+              
+              <div class="form-group" style="width: 50%">
+                      <label for="select" class="control-label">Barva kože</label>
+                      <select id="APGAR" class="form-control" id="select">
+                        <option disabled selected hidden style="color: #999;" value="">izberite..</option>
+                        <option value="1">Rožnata</option>
+                        <option value="0">Bleda</option>
+                        <option value="0">Modra</option>
+                      </select>
+                    </div>
+
+              <div class="form-group" style="width: 50%">
+               
+                  <label for="select" class="control-label">Način Hranjenja</label>
+                
+                <select class="form-control" id="select">
+                  <option disabled selected hidden style="color: #373737" value="">izberite..</option>
+                  <option value="F">Je na usta (steklenička/dojenje)</option>
+                  <option value="M">Hrano dobiva preko infuzije</option>
+                </select>
               </div>
               
               <div class="form-group">
@@ -164,119 +298,57 @@
                 <input class="form-control" id="focusedInput" type="text" placeholder="1957-03-10T09:08">
               </div>
               
-              <div class="form-group">
-                <div style="width: 25%">
-                  <label for="select" class="control-label">Način Hranjenja</label>
-                </div>
-                <select style="width: 50%" class="form-control" id="select">
-                  <option disabled selected hidden style="color: #373737" value="">izberite..</option>
-                  <option value="F">Je na usta</option>
-                  <option value="M">Hrano dobiva preko infuzije</option>
-                </select>
-              </div>
               <div class="form-group form-inline text-left" style="float: right">
                 <button type="submit" class="btn btn-primary ">Dodaj Meritev Vitalnih Znakov</button>
               </div>
             </div>
           </div>
         </div>
-       
+
+
+
+<div class="panel panel-primary text-left" style="float: right; width: 49%">
+          <div class="panel-heading">
+            <button class="panel-title" data-toggle="collapse" data-target="#Graf1" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
+            <h3 class="panel-title">Diagram rizičnosti za posamezno meritev</h3>
+          </div>
+          <div class="panel-collapse collapse in" id="Graf1">
+            <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+
+              <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+              
+
+            </div>
+          </div>
+        </div>
+
+
       </div>
 
-
-
-
-
-
-      <div class="panel panel-success" style="float: right; width: 50%">
-        <div class="panel panel-danger">
-          <div class="panel-heading">
-            <button class="panel-title" data-toggle="collapse" data-target="#Rizikfaktorji" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
-            <h3 class="panel-title">Rizikfaktorji</h3>
-          </div>
-          <div class="panel-collapse collapse in" id = "Rizikfaktorji">
-          <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-            
-            <div class="form-group">
-              <label class="control-label">Čas Nosečnosti</label>
-              <div class="input-group">
-                <input type="text" class="form-control"  placeholder="26">
-                <span class="input-group-addon">tednov</span>
-              </div>
-            </div>
-              
-            <div class="form-group">
-              <label class="control-label">Starost Matere</label>
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="16">
-                <span class="input-group-addon">let</span>
-              </div>
-            </div>
-              
-            <div class="form-group">
-                  <label for="select" class="control-label">APGAR Ocena</label>
-                <select class="form-control" id="select" >
-                  <option disabled selected hidden style="color: #999;" value="">izberite..</option>
-                  <option value="10">10</option>
-                  <option value="9">9</option>
-                  <option value="8">8</option>
-                  <option value="7">7</option>
-                  <option value="6">6</option>
-                  <option value="5">5</option>
-                  <option value="4">4</option>
-                  <option value="3">3</option>
-                  <option value="2">2</option>
-                  <option value="1">1</option>
-                </select>
-              </div>
-            
-            <div class="form-group">
-              <label class="control-label">Dolžina Ob Rojstvu</label>
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="35">
-                <span class="input-group-addon">cm</span>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="control-label">Teža Ob Rojstvu</label>
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="1600">
-                <span class="input-group-addon">g</span>
-              </div>
-            </div>
-            
-             <div class="form-group form-inline text-left" style="float: right">
-                <button type="submit" class="btn btn-primary">Dodaj Rizikfaktorje</button>
-              </div>
-              
-          </div>
-          </div>
-        </div>
-
-        <div class="panel panel-success">
-          <div class="panel-heading">
-            <h3 class="panel-title">Panel success</h3>
-          </div>
-          <div class="panel-body">
-            Panel content
-          </div>
-        </div>
-
-        <div class="panel panel-warning">
-          <div class="panel-heading">
-            <h3 class="panel-title">Panel warning</h3>
-          </div>
-          <div class="panel-body">
-            Panel content
-          </div>
-        </div>
-      </div>
     </div>
+    
+    
+ <div class="panel panel-primary text-left" style="float: left; width: 100%">
+          <div class="panel-heading">
+            <button class="panel-title" data-toggle="collapse" data-target="#toCollapse2" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
+            <h3 class="panel-title">Odpri profil že obstoječega pacienta</h3>
+          </div>
+          
+          <div class="panel-collapse collapse in" id="toCollapse2">
 
-  </div>
+            <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+              
+              <label class="control-label" for="focusedInput">EHR ID pacienta</label>
+                <div class="input-group" style="width: 100%">
+                  <input class="form-control" id="focusedInput" type="text" placeholder="5cff38c6-22c8-471f-ad15-c015ec2b7af5">
+            </div>
+            
+          </div>
+          </div>
+</div>
+    
 
-  <!-- KONEC: Vsebina aplikacije -->
+    <!-- KONEC: Vsebina aplikacije -->
 
 </body>
 

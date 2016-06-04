@@ -170,6 +170,105 @@ function preberiZgodovinoMeritev() {
 }
 */
 
+
+
+
+
+
+
+function dodajMeritveVitalnihZnakov() {
+    
+	sessionId = getSessionId();
+
+	var ehrId = $("#dodajVitalnoEHR").val();
+	var Pulz = $("#dodajVitalnoPulz").val();
+	var dist = $("#dodajVitalnoKrvniTlakDiastolicni").val();
+	var sist = $("#dodajVitalnoKrvniTlakSistolicni").val();
+	var dihanje = $("#dodajVitalnoFrekvencaDihanja").val();
+	var kisik = $("#dodajVitalnoNasicenostKrviSKisikom").val();
+	var temperatura = $("#dodajVitalnoTelesnaTemperatura").val();
+	var CPR = $("#dodajVitalnoCPR").val();
+	var barvaKoze = $("#dodajVitalnoBarvaKoze").val();
+	
+
+	if (!ehrId || ehrId.trim().length == 0) {
+		$("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo " +
+      "label label-warning fade-in'>Prosim vnesite zahtevane podatke!</span>");
+	} else {
+	    console.log("dodal meritve vitalnih znakov");
+		$.ajaxSetup({
+		    headers: {"Ehr-Session": sessionId}
+		});
+		var podatki = {
+			// Struktura predloge je na voljo na naslednjem spletnem naslovu:
+      // https://rest.ehrscape.com/rest/v1/template/Vital%20Signs/example
+		
+		    "partyAdditionalInfo": [{
+		        "key": "EHR",
+		        "value": ehrId
+		    },
+		    {
+		        "key": "Pulse",
+		        "value": Pulz
+		    },
+		    {
+		        "key": "distolic",
+		        "value": dist
+		    },
+		    {
+		        "key": "sistolic",
+		        "value": sist
+		    },
+		    {
+		        "key": "breeathing",
+		        "value": dihanje
+		    },
+		    {
+		        "key": "oxygen",
+		        "value": kisik
+		    },
+		    {
+		        "key": "temp",
+		        "value": temperatura
+		    },
+		    {
+		        "key": "CPRv",
+		        "value": CPR
+		    },
+		    {
+		        "key": "skinColour",
+		        "value": barvaKoze
+		    }]
+		};
+
+		$.ajax({
+		    url: baseUrl + "/demographics/party",
+		    type: 'POST',
+		    contentType: 'application/json',
+		    data: JSON.stringify(podatki),
+		    success: function (res) {
+		        $("#dodajMeritveVitalnihZnakovSporocilo").html(
+              "<span class='obvestilo label label-success fade-in'>" +
+              res.meta.href + ".</span>");
+		    },
+		    error: function(err) {
+		    	$("#dodajMeritveVitalnihZnakovSporocilo").html(
+            "<span class='obvestilo label label-danger fade-in'>Napaka '" +
+            JSON.parse(err.responseText).userMessage + "'!");
+		    }
+		});
+	}
+}
+
+
+
+
+
+
+
+
+/// graf
+
 $(function () {
             var riskPritisk = 0.5;
             var riskKisik = 0.5;
@@ -241,3 +340,171 @@ $(function () {
         }]
     });
 });
+
+
+
+
+
+
+
+
+
+//graf 2
+$(function () {
+    var skupnaRizičnost = 40;
+
+    var gaugeOptions = {
+
+        chart: {
+            type: 'solidgauge'
+        },
+
+        title: {
+            text: 'Skupni faktor rizičnosti'
+        },
+
+        pane: {
+            center: ['50%', '85%'],
+            size: '140%',
+            startAngle: -90,
+            endAngle: 90,
+            background: {
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+                innerRadius: '60%',
+                outerRadius: '100%',
+                shape: 'arc'
+            }
+        },
+
+        tooltip: {
+            enabled: false
+        },
+
+        // the value axis
+        yAxis: {
+            stops: [
+                [0.1, '#55BF3B'], // green
+                [0.5, '#DDDF0D'], // yellow
+                [0.9, '#DF5353'] // red
+            ],
+            lineWidth: 0,
+            minorTickInterval: null,
+            tickPixelInterval: 400,
+            tickWidth: 0,
+            title: {
+                y: -70
+            },
+            labels: {
+                y: 16
+            }
+        },
+
+        plotOptions: {
+            solidgauge: {
+                dataLabels: {
+                    y: 5,
+                    borderWidth: 0,
+                    useHTML: true
+                }
+            }
+        }
+    };
+
+    // The speed gauge
+    $('#container-speed').highcharts(Highcharts.merge(gaugeOptions, {
+        yAxis: {
+            min: 0,
+            max: 100,
+            title: {
+                text: ''
+            }
+        },
+
+        credits: {
+            enabled: false
+        },
+
+        series: [{
+            name: 'Speed',
+            data: [skupnaRizičnost],
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                       '<span style="font-size:12px;color:silver">ocena rizičnosti</span></div>'
+            },
+            tooltip: {
+                valueSuffix: ' ocena rizičnosti'
+            }
+        }]
+
+    }));
+
+});
+
+
+$(function () {
+    $('#containerx').highcharts({
+
+        title: {
+            text: 'Logarithmic axis demo'
+        },
+
+        xAxis: {
+            tickInterval: 1
+        },
+
+        yAxis: {
+            type: 'logarithmic',
+            minorTickInterval: 0.1
+        },
+
+        tooltip: {
+            headerFormat: '<b>{series.name}</b><br />',
+            pointFormat: 'x = {point.x}, y = {point.y}'
+        },
+
+        series: [{
+            data: [1, 8, 4, 8, 16, 32, 64, 128, 256, 512],
+            pointStart: 0
+        }]
+    });
+});
+
+
+
+$(function () {
+    $('#containery').highcharts({
+
+        title: {
+            text: 'Logarithmic axis demo'
+        },
+
+        xAxis: {
+            tickInterval: 1
+        },
+
+        yAxis: {
+            type: 'arithmetic',
+            minorTickInterval: 1
+        },
+
+        tooltip: {
+            headerFormat: '<b>{series.name}</b><br />',
+            pointFormat: 'x = {point.x}, y = {point.y}'
+        },
+
+        series: [{
+            data: [1, 8, 4, 8, 8, 32, 8, 18, 29, 8],
+            pointStart: 0
+        }]
+    });
+});
+
+function prikazi() {
+    $("#Graf2").collapse("show");
+    $("#Graf3").collapse("show");
+}
+
+function prikazi2() {
+    $("#Graf1").collapse("show");
+}

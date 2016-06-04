@@ -13,13 +13,14 @@
   <script src="knjiznice/js/jquery-2.2.3.min.js"></script>
   <script src="knjiznice/js/bootstrap.min.js"></script>
   <script src="knjiznice/js/koda.js"></script>
-  
+
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/highcharts-more.js"></script>
   <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
 
-  
+
 </head>
 
 <body>
@@ -40,7 +41,7 @@
         <ul class="nav navbar-nav">
           <li><a href="opis.html">Opis ideje</a></li>
           <li><a href="nacrt.html">Načrt informacijske rešitve</a></li>
-          <li><a href="#">Generiranje podatkov</a></li>
+          <li onclick="generiranjePodatkov()"><a href="#">Generiranje podatkov</a></li>
         </ul>
       </div>
     </div>
@@ -63,346 +64,402 @@
 
         <div class="jumbotron">
           <h1>Pozdravljeni!</h1>
-          <p>Aplikacija je namenjena zdravnikom pedijatrom in sicer pomaga pri oceni rizičnosti pri novorojenčkih, ter spremljanju njihovega stanja vse od rojstva do odpusta iz porodnišnice.</p>
+          <div style="height: 10px"></div>
+          <p>Aplikacija je namenjena zdravnikom pediatrom in sicer pomaga pri oceni rizičnosti pri novorojenčkih, ter spremljanju njihovega stanja vse od rojstva do odpusta iz porodnišnice.</p>
+          <div style="height: 20px"></div>
           <p><a href="opis.html" class="btn btn-primary btn-lg">Več o tem</a></p>
         </div>
 
+       <label for="select" class=" control-label text-left" style="float: left;">Kreiraj osnovne podatke meritev</label>
 
-        <div class="panel panel-primary text-left" style="float: left; width: 100%">
-          <div class="panel-heading">
-            <button class="panel-title" data-toggle="collapse" data-target="#toCollapse" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
-            <h3 class="panel-title">Ustvari zapis za novega bolnika</h3>
-          </div>
+      <div style="height:1px"></div>
+      <div style="height:1px"></div>
 
-          <div class="panel-collapse collapse in" id="toCollapse">
+      <button onclick="kreirajOsnovnePodatke()" class="btn btn-default" style="float: left">Kreiraj</button>
+      <select class="form-control" id="selectx" style="flaot:right; width: 35%;">
+        <option disabled selected hidden style="color: #373737" value="0">izberite..</option>
+        <option value="a">Zdrav dojenček</option>
+        <option value="b">Srednje rizičen dojenček</option>
+        <option value="c">Zelo rizičen dojenček</option>
+      </select>
+      </div>
 
-            <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+<div class="col-lg-12 text-center">
+      <div class="panel panel-primary text-left" style="float: left; width: 100%">
+        <div class="panel-heading">
 
-              <div class="panel panel-primary text-left" style="float: left; width: 49%">
-
-                <div class="panel-heading">
-                  <button class="panel-title" data-toggle="collapse" data-target="#UstvariZapis" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
-                  <h3 class="panel-title">Osovni podatki</h3>
-                </div>
-                <div class="panel-collapse collapse in" id="UstvariZapis">
-                  <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-                  
-                    <div class="form-group">
-                      <label class="control-label" for="focusedInput">Ime Matere</label>
-                      <input class="form-control" id="kreirajIme" type="text" placeholder="Petra">
-                    </div>
-
-                    <div class="form-group">
-                      <label class="control-label" for="focusedInput">Priimek Matere</label>
-                      <input class="form-control" id="kreirajPriimek" type="text" placeholder="Ral">
-                    </div>
-
-                    <div class="form-group">
-                      <label class="control-label" for="focusedInput">Datum Rojstva Otroka</label>
-                      <input class="form-control" id="kreirajDatumRojstva" type="text" placeholder="1957-03-10T09:08">
-                    </div>
-
-                    <div class="form-group">
-                      <div style="width: 10%">
-                        <label for="select" class="control-label">Spol</label>
-                      </div>
-                      <select style="width: 20%" class="form-control" id="spol">
-                        <option disabled selected hidden style="color: #373737" value="">izberite..</option>
-                        <option value="Ženski">Ženski</option>
-                        <option value="Moški">Moški</option>
-                      </select>
-                    </div>
-                  
-                  </div>
-                </div>
-              </div>
-
-
-
-              <div class="panel panel-danger text-left" style="float: right; width: 49%">
-                <div class="panel-heading">
-                  <button class="panel-title" data-toggle="collapse" data-target="#Rizikfaktorji" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
-                  <h3 class="panel-title">Faktorji Rizičnosti</h3>
-                </div>
-                <div class="panel-collapse collapse in" id="Rizikfaktorji">
-                  <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-
-                    <div class="form-group">
-                      <label class="control-label">Čas Nosečnosti</label>
-                      <div class="input-group">
-                        <input id="casNosecnosti" type="text" class="form-control" placeholder="26">
-                        <span class="input-group-addon">tednov</span>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="control-label">Starost Matere</label>
-                      <div class="input-group">
-                        <input id="starostMatere" type="text" class="form-control" placeholder="16">
-                        <span class="input-group-addon">let</span>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="select" class="control-label">APGAR Ocena</label>
-                      <select id="APGAR" class="form-control" id="select">
-                        <option disabled selected hidden style="color: #999;" value="">izberite..</option>
-                        <option value="10">10</option>
-                        <option value="9">9</option>
-                        <option value="8">8</option>
-                        <option value="7">7</option>
-                        <option value="6">6</option>
-                        <option value="5">5</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option value="1">1</option>
-                      </select>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="control-label">Dolžina Ob Rojstvu</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="35">
-                        <span class="input-group-addon">cm</span>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="control-label">Teža Ob Rojstvu</label>
-                      <div class="input-group">
-                        <input id="Teza" type="text" class="form-control" placeholder="1600">
-                        <span class="input-group-addon">g</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-<span id="kreirajSporocilo"></span>
-
-              <button onclick="kreirajEHRzaBolnika()" class="btn btn-default btn-lg btn-block; text-center" style="width: 100%;">Ustvari zapis za bolnika</button>
-
-            </div>
-          </div>
+          <button class="panel-title" data-toggle="collapse" data-target="#toCollapse" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
+          <h3 class="panel-title">Ustvari zapis za novega bolnika</h3>
         </div>
 
+        <div class="panel-collapse collapse in" id="toCollapse">
+
+          <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+
+            <div class="panel panel-primary text-left" style="float: left; width: 49%">
+
+              <div class="panel-heading">
+                <button class="panel-title" data-toggle="collapse" data-target="#UstvariZapis" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
+                <h3 class="panel-title">Osovni podatki</h3>
+              </div>
+              <div class="panel-collapse collapse in" id="UstvariZapis">
+                <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+
+                  <div class="form-group">
+                    <label class="control-label" for="imeMatere">Ime Matere</label>
+                    <input class="form-control" id="kreirajIme" type="text" placeholder="Petra">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label" for="priimekMatere">Priimek Matere</label>
+                    <input class="form-control" id="kreirajPriimek" type="text" placeholder="Ral">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label" for="datumRojstva">Datum Rojstva Otroka</label>
+                    <input class="form-control" id="kreirajDatumRojstva" type="text" placeholder="1957-03-10T09:08">
+                  </div>
+
+                  <div class="form-group">
+                    <div style="width: 10%">
+                      <label for="select" class="control-label">Spol</label>
+                    </div>
+                    <select style="width: 20%" class="form-control" id="spol">
+                      <option disabled selected hidden style="color: #373737" value="">izberite..</option>
+                      <option value="Ženski">Ženski</option>
+                      <option value="Moški">Moški</option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+            </div>
 
 
 
+            <div class="panel panel-danger text-left" style="float: right; width: 49%">
+              <div class="panel-heading">
+                <button class="panel-title" data-toggle="collapse" data-target="#Rizikfaktorji" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
+                <h3 class="panel-title">Faktorji Rizičnosti</h3>
+              </div>
+              <div class="panel-collapse collapse in" id="Rizikfaktorji">
+                <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+
+                  <div class="form-group">
+                    <label class="control-label">Čas Nosečnosti</label>
+                    <div class="input-group">
+                      <input id="casNosecnosti" type="text" class="form-control" placeholder="26">
+                      <span class="input-group-addon">tednov</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Starost Matere</label>
+                    <div class="input-group">
+                      <input id="starostMatere" type="text" class="form-control" placeholder="16">
+                      <span class="input-group-addon">let</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="select" class="control-label">APGAR Ocena</label>
+                    <select id="APGAR" class="form-control" id="select">
+                      <option disabled selected hidden style="color: #999;" value="">izberite..</option>
+                      <option value="10">10</option>
+                      <option value="9">9</option>
+                      <option value="8">8</option>
+                      <option value="7">7</option>
+                      <option value="6">6</option>
+                      <option value="5">5</option>
+                      <option value="4">4</option>
+                      <option value="3">3</option>
+                      <option value="2">2</option>
+                      <option value="1">1</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Dolžina Ob Rojstvu</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="35" id="dolzina">
+                      <span class="input-group-addon">cm</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Teža Ob Rojstvu</label>
+                    <div class="input-group">
+                      <input id="teza" type="text" class="form-control" placeholder="1600">
+                      <span class="input-group-addon">g</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
+            <span id="kreirajSporocilo"></span>
 
+            <button onclick="kreirajEHRzaBolnika()" class="btn btn-default btn-lg btn-block; text-center" style="width: 100%;">Ustvari zapis za bolnika</button>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="panel panel-primary text-left" style="float: left; width: 49%">
-          <div class="panel-heading">
-            <button class="panel-title" data-toggle="collapse" data-target="#VitalniZnaki" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
-            <h3 class="panel-title">Dodaj meritev vitalnih znakov</h3>
           </div>
-          <div class="panel-collapse collapse in" id="VitalniZnaki">
-            <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+        </div>
+      </div>
+</div>
+
+
+
+
+
+
+    <div class="col-lg-12 text-center">
+        <label for="select" class=" control-label text-left" style="float: left;">Kreiraj podatke meritev</label>
+
+      <div style="height:1px"></div>
+      <div style="height:1px"></div>
+
+      <button class="btn btn-default" style="float: left" onclick="kreiraj2()">Kreiraj</button>
+      <select class="form-control" id="selectx2" style="flaot:right; width: 35%;">
+        <option disabled selected hidden style="color: #373737" value="0">izberite..</option>
+        <option value="a">Zdrav dojenček</option>
+        <option value="b">Srednje rizičen dojenček</option>
+        <option value="c">Zelo rizičen dojenček</option>
+      </select>
+    </div>
+
+
+<div class="col-lg-12 text-center">
+      <div class="panel panel-primary text-left " style="float: left; width: 49%">
+        <div class="panel-heading">
+          <button class="panel-title" data-toggle="collapse" data-target="#VitalniZnaki" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
+          <h3 class="panel-title">Dodaj meritev vitalnih znakov</h3>
+        </div>
+        <div class="panel-collapse collapse in" id="VitalniZnaki">
+          <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
 
             <div style="height:15px"></div>
 
             <div class="form-group">
-            <label class="control-label" for="focusedInput">EHR ID pacienta</label>
-                <div class="input-group" style="width: 100%">
-                  <input class="form-control" id="dodajVitalnoEHR" type="text" placeholder="5cff38c6-22c8-471f-ad15-c015ec2b7af5">
-            </div>
-            </div>
-
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">Pulz</label>
-                <div class="input-group">
-                  <input class="form-control" id="dodajVitalnoPulz" type="text" placeholder="100">
-                  <span class="input-group-addon">bpm</span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">Diastolični Pritisk</label>
-                <div class="input-group">
-                  <input class="form-control" id="dodajVitalnoKrvniTlakDiastolicni" type="text" placeholder="120">
-                  <span class="input-group-addon">mm Hg</span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">Sistolični Pritisk</label>
-                <div class="input-group">
-                  <input class="form-control" id="dodajVitalnoKrvniTlakSistolicni" type="text" placeholder="80">
-                  <span class="input-group-addon">mm Hg</span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">Frekvenca Dihanja</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="40" id="dodajVitalnoFrekvencaDihanja">
-                  <span class="input-group-addon">vdihov/min</span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">Nasičenost Krvi s Kisikom</label>
-                <div class="input-group">
-                  <input class="form-control" id="dodajVitalnoNasicenostKrviSKisikom" type="text" placeholder="92">
-                  <span class="input-group-addon">%</span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">Temperatura</label>
-                <div class="input-group">
-                  <input class="form-control" id="dodajVitalnoTelesnaTemperatura" type="text" placeholder="37.4">
-                  <span class="input-group-addon">°C</span>
-                </div>
-              </div>
-
-              
-
-              <div class="form-group">
-                <label class="control-label" for="focusedInput">CPR Vrednost</label>
-                <input class="form-control" id="dodajVitalnoCPR" type="text" placeholder="113">
-              </div>
-              
-              <div class="form-group" style="width: 50%">
-                      <label for="select" class="control-label">Barva kože</label>
-                      <select class="form-control" id="dodajVitalnoBarvaKoze">
-                        <option disabled selected hidden style="color: #999;" value="">izberite..</option>
-                        <option value="Roznata">Rožnata</option>
-                        <option value="Bleda">Bleda</option>
-                        <option value="Modra">Modra</option>
-                      </select>
-                    </div>
-              
-              <div class="form-group form-inline text-left" style="float: right">
-                <button onclick="dodajMeriteVitalnihZnakov()" class="btn btn-primary ">Dodaj Meritev Vitalnih Znakov</button>
+              <label class="control-label" for="focusedInput">EHR ID pacienta</label>
+              <div class="input-group" style="width: 100%">
+                <input class="form-control" id="dodajVitalnoEHR" type="text" placeholder="5cff38c6-22c8-471f-ad15-c015ec2b7af5">
               </div>
             </div>
-          </div>
-        </div>
+
+            <div class="form-group">
+              <label class="control-label" for="focusedInput">Pulz</label>
+              <div class="input-group">
+                <input class="form-control" id="dodajVitalnoPulz" type="text" placeholder="100">
+                <span class="input-group-addon">bpm</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="focusedInput">Diastolični Pritisk</label>
+              <div class="input-group">
+                <input class="form-control" id="dodajVitalnoKrvniTlakDiastolicni" type="text" placeholder="120">
+                <span class="input-group-addon">mm Hg</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="focusedInput">Sistolični Pritisk</label>
+              <div class="input-group">
+                <input class="form-control" id="dodajVitalnoKrvniTlakSistolicni" type="text" placeholder="80">
+                <span class="input-group-addon">mm Hg</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="focusedInput">Frekvenca Dihanja</label>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="40" id="dodajVitalnoFrekvencaDihanja">
+                <span class="input-group-addon">vdihov/min</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="focusedInput">Nasičenost Krvi s Kisikom</label>
+              <div class="input-group">
+                <input class="form-control" id="dodajVitalnoNasicenostKrviSKisikom" type="text" placeholder="92">
+                <span class="input-group-addon">%</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="focusedInput">Temperatura</label>
+              <div class="input-group">
+                <input class="form-control" id="dodajVitalnoTelesnaTemperatura" type="text" placeholder="37.4">
+                <span class="input-group-addon">°C</span>
+              </div>
+            </div>
 
 
 
-<div class="panel panel-primary text-left" style="float: right; width: 49%">
-          <div class="panel-heading">
-            <button class="panel-title" data-toggle="collapse" data-target="#Graf1" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
-            <h3 class="panel-title">Diagram rizičnosti za posamezno meritev</h3>
-          </div>
-          <div class="panel-collapse collapse in" id="Graf1">
-            <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-              
-              <div style="height: 15px"></div>
-              <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-              <div style="height: 35px"></div>
-              <div id="container-speed" style="min-width: 310px; height: 320px; max-width: 600px; margin: 0 auto"></div>
+            <div class="form-group">
+              <label class="control-label" for="focusedInput">CPR Vrednost</label>
+              <input class="form-control" id="dodajVitalnoCPR" type="text" placeholder="113">
+            </div>
+
+            <div class="form-group" style="width: 50%">
+              <label for="select" class="control-label">Barva kože</label>
+              <select class="form-control" id="dodajVitalnoBarvaKozee">
+                <option disabled selected hidden style="color: #999;" value="">izberite..</option>
+                <option value="Rožnata">Rožnata</option>
+                <option value="Bleda">Bleda</option>
+                <option value="Modra">Modra</option>
+              </select>
+            </div>
+            <span id="vnesi4" class="obvestilo text-left"></span>
+            <div style="height: 11px"></div>
+            <div class="form-group form-inline text-left" style="float: left">
+
+
+              <button onclick="dodajMeriteVitalnihZnakov()" class="btn btn-primary" style="flaot: left">Dodaj Meritev Vitalnih Znakov</button>
             </div>
           </div>
         </div>
-        
-        
-<div class="panel panel-danger text-left" style="float: right; width: 100%">
-          <div class="panel-heading">
-            <button class="panel-title" data-toggle="collapse" data-target="#Napotki" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
-            <h3 class="panel-title">Napotki</h3>
-          </div>
-          <div class="panel-collapse collapse" id="Napotki">
-            <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-              
-              
-              <!--iframe width="100%" height="600" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=zalo%C5%A1ka%20cesta%207%20ljubljana&key=AIzaSyB6Xf5dwceYLFR9S0DGQ-dycZwEsq-cPA8" allowfullscreen>
-              </iframe-->           
-              
-            </div>
-          </div>
-        </div>
-
       </div>
 
-        
-    
-    </div>
-    
-    
- <div class="panel panel-primary text-left" style="float: left; width: 100%">
-          <div class="panel-heading">
-            <button class="panel-title" data-toggle="collapse" data-target="#toCollapse2" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
-            <h3 class="panel-title">Odpri profil že obstoječega pacienta</h3>
-          </div>
-          
-          <div class="panel-collapse collapse in" id="toCollapse2">
 
-            <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-              
-              <label class="control-label" for="focusedInput">EHR ID pacienta</label>
-                <div class="input-group" style="width: 100%">
-                  <input class="form-control" id="focusedInput" type="text" placeholder="5cff38c6-22c8-471f-ad15-c015ec2b7af5">
-            </div>
-            <div style="height:15px"></div>
-            <button onclick="kreirajEHRzaBolnika(); prikazi()" class="btn btn-default btn-lg btn-block; text-center" style="width: 100%;">Odpri statistiko pacienta</button>
-            
-            
+
+      <div class="panel panel-primary text-left" style="float: right; width: 49%">
+        <div class="panel-heading">
+          <button class="panel-title" data-toggle="collapse" data-target="#Graf1" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
+          <h3 class="panel-title">Diagram rizičnosti za posamezno meritev</h3>
+        </div>
+        <div class="panel-collapse collapse in" id="Graf1">
+          <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+
             <div style="height: 15px"></div>
-            
-            <div class="panel panel-primary text-left" style="float: left; width: 49%">
-
-                <div class="panel-heading">
-                  <button class="panel-title" data-toggle="collapse" data-target="#Graf2" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
-                  <h3 class="panel-title">Skupni graf napredka</h3>
-                </div>
-                <div class="panel-collapse collapse in" id="Graf2">
-                  <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-                    
-                    <div id="containerx" style="width: 100%; min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-                    
-                  </div>
-                                      
-                </div>
-              </div>
-            
-             <div class="panel panel-primary text-left" style="float: right; width: 49%">
-
-                <div class="panel-heading">
-                  <button class="panel-title" data-toggle="collapse" data-target="#Graf3" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
-                  <h3 class="panel-title">Skupni graf napredka</h3>
-                </div>
-                <div class="panel-collapse collapse in" id="Graf3">
-                  <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-                    
-                    <div id="containery" style="width: 100%; min-width: 310px; height: 400px; margin: 0 auto"></div>
-                    
-                    
-                  </div>
-                                      
-                </div>
-              </div>
-            
-            
+            <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+            <div style="height: 35px"></div>
+            <div id="container-speed" style="min-width: 310px; height: 320px; max-width: 600px; margin: 0 auto"></div>
           </div>
-          </div>
-          
-
-          
+        </div>
+      </div>
 </div>
-    
+</div>
+    <div class="panel panel-danger text-left" style="float: right; width: 100%">
+      <div class="panel-heading">
+        <h3 class="panel-title">Napotki</h3>
+      </div>
+      <div class="panel-collapse collapse" id="Napotki">
+        <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+          
+          <h3 class=" text-center" style="color:red;">Ocena rizičnosti presega 150, otroka je potrebno premestiti v Univerzitetni Klinični Center Ljubljana!!!</h3>
+          <h2 class=" text-center">UKC Ljubljana</h2>
+          <iframe width="100%" height="600" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=zalo%C5%A1ka%20cesta%207%20ljubljana&key=AIzaSyB6Xf5dwceYLFR9S0DGQ-dycZwEsq-cPA8" allowfullscreen>
+              </iframe>
 
-    <!-- KONEC: Vsebina aplikacije -->
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+   <label for="select" class=" control-label text-left" style="float: left;">Kreiraj EHR ID</label>
+
+      <button onclick="kreiraj3()" class="btn btn-default" style="float: left">Kreiraj</button>
+      <select class="form-control" id="selectx3" style="float:left; width: 35%;">
+        <option disabled selected hidden style="color: #373737" value="0">izberite..</option>
+        <option value="a">Zdrav dojenček</option>
+        <option value="b">Srednje rizičen dojenček</option>
+        <option value="c">Zelo rizičen dojenček</option>
+      </select>
+      
+      <div style="height 10px">-</div>
+    <div class="panel panel-primary text-left" style="float: left; width: 100%">
+      <div class="panel-heading">
+        <button class="panel-title" data-toggle="collapse" data-target="#toCollapse2" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
+        <h3 class="panel-title">Odpri profil že obstoječega pacienta</h3>
+      </div>
+
+      <div class="panel-collapse collapse in" id="toCollapse2">
+
+        <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+
+          <label class="control-label" for="focusedInput">EHR ID pacienta</label>
+          <div class="input-group" style="width: 100%">
+
+            <input class="form-control" id="EHRRR" type="text" placeholder="5cff38c6-22c8-471f-ad15-c015ec2b7af5">
+            <span id="vnesi3" class="obvestilo"></span>
+          </div>
+          <div style="height:15px"></div>
+          <button onclick="preberiMeritveVitalnihZnakov();" class="btn btn-default btn-lg btn-block; text-center" style="width: 100%;">Prikaži statistiko pacienta</button>
+
+
+          <div style="height: 15px"></div>
+
+          <div class="panel panel-primary text-left" style="float: left; width: 49%">
+
+            <div class="panel-heading">
+              <button class="panel-title" data-toggle="collapse" data-target="#Graf2" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
+              <h3 class="panel-title">Skupni graf napredka</h3>
+            </div>
+            <div class="panel-collapse collapse in" id="Graf2">
+              <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+
+                <div id="containerx" style="width: 100%; min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
+              </div>
+
+            </div>
+          </div>
+
+          <div class="panel panel-primary text-left" style="float: right; width: 49%">
+
+            <div class="panel-heading">
+              <button class="panel-title" data-toggle="collapse" data-target="#Graf3" style="background-color: transparent; border-color: transparent; cursor: pointer; float: right;">skrij</button>
+              
+              <h3 class="panel-title">Skupni graf napredka</h3>
+          <div style="float: right">
+      
+        </div>
+            </div>
+            <div class="panel-collapse collapse in" id="Graf3">
+              <div class="panel-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+                <div class=well well>
+                <div class="input-group" style="width:100%">
+      <button onclick="preberiMeritveVitalnihZnakov();" class="btn btn-default" style="float: left">Posodobi</button>
+      <select class="form-control form-control" id="izberitee" style="width: 70%;">
+        <option disabled selected hidden style="color: #373737" value="0">izberite..</option>
+        <option value="Pulz">Pulz</option>
+        <option value="Diastolični">Diastoličnik</option>
+        <option value="Sistolični">Sistolični</option>
+        <option value="Frekvenca Dihanja">Frekvenca Dihanja</option>
+        <option value="Nasičenost s Kisikom">Nasičenost s Kisikom</option>
+        <option value="Temperatura">Temperatura</option>
+        <option value="CPR">CPR</option>
+        <option value="Skupna Rizičnost">Skupna Rizičnost</option>
+      </select>
+      </div>
+      </div>
+
+                <div id="containery" style="width: 100%; min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      </div>
+
+
+  </div>
+
+
+  <!-- KONEC: Vsebina aplikacije -->
 
 </body>
 

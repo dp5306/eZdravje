@@ -172,11 +172,17 @@ function preberiZgodovinoMeritev() {
 
 
 
+            var riskPritisk = 0;
+            var riskKisik = 0;
+            var riskKoza = 0;
+            var riskDihanje = 0;
+            var riskTemperatura = 0;
+            var riskCPR = 0;
+            var skupnoRizik = 0;
 
 
 
-
-function dodajMeritveVitalnihZnakov() {
+function dodajMeriteVitalnihZnakov() {
     
 	sessionId = getSessionId();
 
@@ -189,7 +195,39 @@ function dodajMeritveVitalnihZnakov() {
 	var temperatura = $("#dodajVitalnoTelesnaTemperatura").val();
 	var CPR = $("#dodajVitalnoCPR").val();
 	var barvaKoze = $("#dodajVitalnoBarvaKoze").val();
+	riskPritisk = 1;
+    riskKisik = 1;
+    riskKoza = 0;
+    riskDihanje = 1;
+    riskTemperatura = 1;
+    riskCPR = 1;
 	
+	if(dist<25 || dist>55 || sist<45 || sist>75){riskPritisk = 100; skupnoRizik+= 100;}
+	else if(dist<30 || dist>50 || sist<50 || sist>70){riskPritisk = 60; skupnoRizik+= 50;}
+	else if(dist<35 || dist>45 || sist<55 || sist>65){riskPritisk = 30; skupnoRizik+= 10;}
+	
+	if(kisik<80){riskKisik = 100; skupnoRizik+= 100;}
+	else if(kisik<87){riskKisik = 60; skupnoRizik+= 50;}
+	else if(kisik<95){riskKisik = 30; skupnoRizik+= 10;}
+	
+	if(barvaKoze == "Modra" || barvaKoze == "Bleda"){riskKoza = 100; skupnoRizik+=50;}
+	
+	if(dihanje < 17 || dihanje > 45){riskDihanje = 60; skupnoRizik+= 10;}
+	else if(dihanje < 25 || dihanje > 40){riskDihanje = 30; skupnoRizik+= 40;}
+	
+	if(temperatura > 38 || temperatura < 36){riskTemperatura = 100; skupnoRizik+= 80;}
+	else if(temperatura > 37.4 || temperatura < 36.7){riskTemperatura = 50; skupnoRizik+= 30;}
+	
+	if(CPR > 9){riskCPR = 100; skupnoRizik+= 100;}
+	else if(CPR > 7){riskCPR = 60; skupnoRizik+= 50;}
+	else if(CPR > 5){riskCPR = 30; skupnoRizik+= 10;}
+	
+	
+	var chart1 = $("#container").highcharts();
+    chart1.series[0].setData([riskPritisk, riskKisik, riskKoza, riskDihanje, riskTemperatura, riskCPR],true);
+    
+    var chart2 = $("#container-speed").highcharts();
+    chart2.series[0].setData([skupnoRizik],true);
 
 	if (!ehrId || ehrId.trim().length == 0) {
 		$("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo " +
@@ -262,20 +300,10 @@ function dodajMeritveVitalnihZnakov() {
 
 
 
-
-
-
-
-
 /// graf
 
 $(function () {
-            var riskPritisk = 0.5;
-            var riskKisik = 0.5;
-            var riskKoža = 0.3;
-            var riskDihanje = 0.2;
-            var riskTemperatura = 0.5;
-            var preostanek = 0.0;
+           
 
     // Radialize the colors
     Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
@@ -331,11 +359,11 @@ $(function () {
                     sliced: true, 
                     selected: true
                 },
-                { name: 'Dihanje', y: riskDihanje },
                 { name: 'Kisik', y: riskKisik },
+                { name: 'Barva kože', y: riskKoza },
+                { name: 'Dihanje', y: riskDihanje },
                 { name: 'Temperatura', y: riskTemperatura },
-                { name: 'Barva kože', y: riskKoža },
-                { name: 'Ostalo', y: preostanek }
+                { name: 'riskCPR', y: riskCPR }
             ]
         }]
     });
@@ -351,7 +379,7 @@ $(function () {
 
 //graf 2
 $(function () {
-    var skupnaRizičnost = 40;
+    var skupnoRizik = 0;
 
     var gaugeOptions = {
 
@@ -426,14 +454,14 @@ $(function () {
 
         series: [{
             name: 'Speed',
-            data: [skupnaRizičnost],
+            data: [skupnoRizik],
             dataLabels: {
                 format: '<div style="text-align:center"><span style="font-size:25px;color:' +
                     ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
                        '<span style="font-size:12px;color:silver">ocena rizičnosti</span></div>'
             },
             tooltip: {
-                valueSuffix: ' ocena rizičnosti'
+                valueSuffix: 'ocena rizičnosti'
             }
         }]
 
@@ -507,4 +535,13 @@ function prikazi() {
 
 function prikazi2() {
     $("#Graf1").collapse("show");
+}
+
+
+function Osvezi(){
+    var chart1 = $("#container").highcharts();
+    chart1.series[0].setData(data,true);
+    
+    var chart2 = $("#container-speed").highcharts();
+    chart2.series[0].setData(data,true);
 }

@@ -268,7 +268,7 @@
               <div class="form-group">
                 <label class="control-label" for="focusedInput">Temperatura</label>
                 <div class="input-group">
-                  <input class="form-control" id="dodajVitalnoTelesnaTemperatura" type="text" placeholder="37,4">
+                  <input class="form-control" id="dodajVitalnoTelesnaTemperatura" type="text" placeholder="37.4">
                   <span class="input-group-addon">°C</span>
                 </div>
               </div>
@@ -282,16 +282,16 @@
               
               <div class="form-group" style="width: 50%">
                       <label for="select" class="control-label">Barva kože</label>
-                      <select id="APGAR" class="form-control" id="dodajVitalnoBarvaKoze">
+                      <select class="form-control" id="dodajVitalnoBarvaKoze">
                         <option disabled selected hidden style="color: #999;" value="">izberite..</option>
-                        <option value="1">Rožnata</option>
-                        <option value="0">Bleda</option>
-                        <option value="0">Modra</option>
+                        <option value="Roznata">Rožnata</option>
+                        <option value="Bleda">Bleda</option>
+                        <option value="Modra">Modra</option>
                       </select>
                     </div>
               
               <div class="form-group form-inline text-left" style="float: right">
-                <button onclick="dodajMeritveVitalnihZnakov()" type="submit" class="btn btn-primary ">Dodaj Meritev Vitalnih Znakov</button>
+                <button onclick="dodajMeriteVitalnihZnakov()" class="btn btn-primary ">Dodaj Meritev Vitalnih Znakov</button>
               </div>
             </div>
           </div>

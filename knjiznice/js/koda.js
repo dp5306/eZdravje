@@ -602,8 +602,8 @@ function Osvezi() {
 
 
 
-var EHRID11 = "0d7f6757-dcf7-4a37-87ad-a2ff4c6ed47b";
-var EHRID22 = "b994dc94-565c-4d42-8955-715883894e74";
+var EHRID11 = "69db3156-bae0-4565-8814-6943605705c5";
+var EHRID22 = "caec5e0c-2e5f-4743-b1ab-f9e04ffa7016";
 var EHRID33 = "4d6d1ca8-f841-46a9-a9a4-384e310fcc2c";
 
 var a = [];

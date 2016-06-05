@@ -118,52 +118,6 @@ function kreirajEHRzaBolnika() {
     }
 }
 
-/*
-function preberiZgodovinoMeritev() {
-    sessionId = getSessionId();
-    var EHRid = ;
-    
-    if (!ehrId || ehrId.trim().length == 0) {
-		$("#preberiSporocilo").html("<span class='obvestilo label label-warning " +
-      "fade-in'>Prosim vnesite zahtevan podatek!");
-	}
-	else{
-	    var searchData = [{
-	        key: "ehrId"
-	        value: EHRid
-	    }];
-	    $.ajax({
-	        url: baseUrl + "/demographics/party/query",
-	        type: "POST",
-	        contentType: "application/json",
-	        data: JSON.stringify(searchData),
-	        headers: {"Ehr-Session": sessionId},
-	        success: function(res){
-	            var results = "";
-	            
-	            
-	            
-	            
-	            
-	            for(i in res.parties){
-	              var party = res.parties[i];
-	              
-	              
-	              
-	              
-	              for(j in party.partyAdditionalInfo){
-	                if (party.partyAdditionalInfo[j].key === "timePregnant"){
-	                    
-	                }
-	              };
-	            };
-	        },
-	        error: function(err){}
-	    });
-	}
-}
-*/
-
 
 
 var riskPritisk = 0;

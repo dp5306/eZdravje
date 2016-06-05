@@ -29,13 +29,7 @@ function getSessionId() {
  * @param stPacienta zaporedna številka pacienta (1, 2 ali 3)
  * @return ehrId generiranega pacienta
  */
-function generirajPodatke(stPacienta) {
-    ehrId = "";
 
-    // TODO: Potrebno implementirati
-
-    return ehrId;
-}
 
 
 // TODO: Tukaj implementirate funkcionalnost, ki jo podpira vaša aplikacija

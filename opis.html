@@ -22,7 +22,7 @@
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
         <!-- ZAČETEK: Ime vaše aplikacije -->
-        <a class="navbar-brand" href="index.html">{ime vaše aplikacije}</a>
+        <a class="navbar-brand" href="index.html">Ocena Rizičnosti Novorojenčkov</a>
         <!-- KONEC: Ime vaše aplikacije -->
       </div>
       <div class="collapse navbar-collapse" id="menujska-vrstica">
@@ -45,7 +45,7 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Opis ideje, ki jo aplikacija podpira -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno dodati <strong>osnovni opis ideje rešitve</strong> (kakšen je osnovni SCENARIJ UPORABE, KDO je ciljna publika, za kakšen NAMEN se aplikacija uporablja).</p><p class="text-muted">Opis naj ne bo daljši od 200 besed.</p>
+            <p><strong></strong>Aplikacija, ki sem jo razvil je namenjena zdravnikom pediatrom, in sicer poskuša poenostaviti proces spremljanja otrokovega stanja neposredno po porodu, ter zmanjšati število napak pri vnosu ter ovrednotenju meritev vitalnih znakov. Porodi se pogosto dogajajo v poznih večernjih in zgodnjih jutarnjih urah, dežurni pediatri pa morajo biti sposobni hitro in natančno oceniti otrokovo stanje. Kljub veliki odgovornosti pa podatke o novorojenčku še vedno zapisujejo na papir in faktor rizičnosti ocenjujejo ročno, brez kakaršne koli elektronske pomoči. Aplikacija deluje tako, da v njo uporabnik vnese osnovne podatke o otroku, ter doda faktorje rizičnosti, ki so znani že pred ali neposredno po porodu. Po porodu pa zdravniki v aplikacijo vnašajo meritve vitalnih znakov, ta jih ob vsakem vnosu opozori kolikšen del skupne rizičnosti predstavlja posamezni vnešeni podatek ter hkrati prikaže izračunano skupno rizičnost otroka, na podlagi katere se lahko pediater odloči o nadaljnih ukrepih. Če aplikacija presodi da je stanje otroka preveč rizično, bo predlagala premestitev otroka v UKC Ljubljana, kjer se mu lahko nudi potrebna zdravstvena pomoč.</p>
             <!-- KONEC: Opis ideje, ki jo aplikacija podpira -->
           </div>
         </div>
@@ -55,7 +55,7 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je navesti zunanji vir podatkov (URL naslov), na kakšen način ste ga uporabili (neposredni API klic, uvožena statična datoteka ipd.) in kaj je bil namen uporabe (kako se vključuje v osnovno idejo aplikacije).</p>
+            <p><strong></strong>Kot zunanji vir podatkov sem uporabil google maps okno, ki sem ga vključil z Google Maps embed API <a href="https://developers.google.com/maps/documentation/embed/">https://developers.google.com/maps/documentation/embed/</a>, torej sem v telo svoje spletne strani dodal iframe okno, ki sem ga že pripravljenega dobil na googlovi spletni strani. Google Maps okno je v moji aplikaciji uporabljeno v primeru da so meritve vitalnih znakov zelo kritične, in sicer se v temu primeru prikaže Google maps okno, ki pokaže lokacijo, kamor je treba premestiti pacienta. Podatke o normalnih vrednosti vitalnih znakov in računanju rizičnosti sem dobil od zdravnika pediatra.</p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
@@ -65,7 +65,7 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Master/detail načrtovalski vzorec -->
-            <p><strong>TO-DO</strong>: Na tem mestu morate navesti uporabljen master/detail načrtovalski vzorec in na kakšen način ga nameravate uporabiti.</p>
+            <p><strong></strong>Master/detail načrtovalski vzorec sem izvedel tako, da sem na koncu apliakcije vključil 2 grafa. Prvi graf prikazuje skupno rizičnost pacienta skozi vse meritve, ki je izračunana iz meritev vseh vitalnih znakov. Na drugem grafu pa lahko kot prikazano vrednost spremljamo enega izmed vitalnih znakov, skozi vse meritve.</p>
             <!-- KONEC: Master/detail načrtovalski vzorec -->
           </div>
         </div>
@@ -75,7 +75,7 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno navesti uporabljeno tehniko vizualizacije podatkov (za pomoč lahko uporabite primer iz <a href="https://github.com/mbostock/d3/wiki/Gallery" target="_blank">D3.js galerije</a>) in zakaj je bila ta tehnika izbrana.</p>
+            <p><strong></strong>Za vizualizacijo podatkov sem uporabil že pripravljene grafe, ki sem jih dobil na strani <a href="http://www.highcharts.com/demo/">http://www.highcharts.com/demo/</a>. Za to metodo vizualizacije sem se odločil, ker je bilo grafe zelo preprosto vključiti v mojo aplikacijo, ter ker sta mi bila všeč izgled in dodatne animacije grafov. </p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
